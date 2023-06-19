@@ -3,12 +3,14 @@ from typing import Any
 
 TOKEN_LEFT_PARENTHESIS = "LPAREN"
 TOKEN_RIGHT_PARENTHESIS = "RPAREN"
+TOKEN_KEYWORD = "KEYWORD"
 TOKEN_NUMBER = "NUMBER"
 TOKEN_STRING = "STRING"
 TOKEN_SYMBOL = "SYMBOL"
 
 LEFT_PARENTHESIS = "("
 RIGHT_PARENTHESIS = ")"
+REGEX_KEYWORD = r"\b(defun|lambda|if|then|else|let|print|first|list)\b"
 REGEX_NUMBER = r"\d+"
 REGEX_STRING = r'"(?:[^"\\]|\\.)*"'
 REGEX_SYMBOL = r"[^\s\(\)]+"
@@ -25,6 +27,8 @@ def match_token_type(token: str) -> str:
         return TOKEN_LEFT_PARENTHESIS
     elif token == RIGHT_PARENTHESIS:
         return TOKEN_RIGHT_PARENTHESIS
+    elif re.fullmatch(REGEX_KEYWORD, token):
+        return TOKEN_KEYWORD
     elif re.fullmatch(REGEX_NUMBER, token):
         return TOKEN_NUMBER
     elif re.fullmatch(REGEX_STRING, token):
