@@ -1,10 +1,38 @@
 import re
 from typing import Any
 
+TOKEN_LEFT_PARENTHESIS = "LPAREN"
+TOKEN_RIGHT_PARENTHESIS = "RPAREN"
+TOKEN_NUMBER = "NUMBER"
+TOKEN_STRING = "STRING"
+TOKEN_SYMBOL = "SYMBOL"
+
+LEFT_PARENTHESIS = "("
+RIGHT_PARENTHESIS = ")"
+REGEX_NUMBER = r"\d+"
+REGEX_STRING = r'"(?:[^"\\]|\\.)*"'
+REGEX_SYMBOL = r"[^\s\(\)]+"
+
 
 def tokenize(code: str) -> list[Any]:
     pattern = re.compile(r'\s*(\(|\)|"[^"]*"|[^\s()]+)\s*')
-    return pattern.findall(code)
+    tokens = pattern.findall(code)
+    return [(match_token_type(token), token) for token in tokens]
+
+
+def match_token_type(token: str) -> str:
+    if token == LEFT_PARENTHESIS:
+        return TOKEN_LEFT_PARENTHESIS
+    elif token == RIGHT_PARENTHESIS:
+        return TOKEN_RIGHT_PARENTHESIS
+    elif re.fullmatch(REGEX_NUMBER, token):
+        return TOKEN_NUMBER
+    elif re.fullmatch(REGEX_STRING, token):
+        return TOKEN_STRING
+    elif re.fullmatch(REGEX_SYMBOL, token):
+        return TOKEN_SYMBOL
+    else:
+        raise ValueError(f"Invalid token: {token}")
 
 
 def parse_tokens(tokens: list[any]) -> list[Any]:
