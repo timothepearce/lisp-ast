@@ -6,6 +6,7 @@ TOKEN_RIGHT_PARENTHESIS = "RPAREN"
 TOKEN_KEYWORD = "KEYWORD"
 TOKEN_NUMBER = "NUMBER"
 TOKEN_STRING = "STRING"
+TOKEN_OPERATOR = "OPERATOR"
 TOKEN_SYMBOL = "SYMBOL"
 
 LEFT_PARENTHESIS = "("
@@ -13,6 +14,7 @@ RIGHT_PARENTHESIS = ")"
 REGEX_KEYWORD = r"\b(defun|lambda|if|then|else|let|print|first|list)\b"
 REGEX_NUMBER = r"\d+"
 REGEX_STRING = r'"(?:[^"\\]|\\.)*"'
+REGEX_OPERATOR = r'[<>=*+-/]'
 REGEX_SYMBOL = r"[^\s\(\)]+"
 
 
@@ -33,6 +35,8 @@ def match_token_type(token: str) -> str:
         return TOKEN_NUMBER
     elif re.fullmatch(REGEX_STRING, token):
         return TOKEN_STRING
+    elif re.fullmatch(REGEX_OPERATOR, token):
+        return TOKEN_OPERATOR
     elif re.fullmatch(REGEX_SYMBOL, token):
         return TOKEN_SYMBOL
     else:
