@@ -1,5 +1,7 @@
 import re
-from typing import Any
+
+Token = tuple[str, str]
+ASTNode = str | int | list["ASTNode"]
 
 TOKEN_LEFT_PARENTHESIS = "LPAREN"
 TOKEN_RIGHT_PARENTHESIS = "RPAREN"
@@ -9,8 +11,6 @@ TOKEN_STRING = "STRING"
 TOKEN_OPERATOR = "OPERATOR"
 TOKEN_IDENTIFIER = "IDENTIFIER"
 
-LEFT_PARENTHESIS = "("
-RIGHT_PARENTHESIS = ")"
 REGEX_KEYWORD = r"\b(defun|lambda|if|then|else|let|print|first|list)\b"
 REGEX_NUMBER = r"\d+"
 REGEX_STRING = r'"(?:[^"\\]|\\.)*"'
@@ -18,16 +18,16 @@ REGEX_OPERATOR = r"(<=|>=|<|>|=|\*|\+|-|/)"
 REGEX_IDENTIFIER = r"\b[a-zA-Z][a-zA-Z0-9]*\b"
 
 
-def tokenize(code: str) -> list[Any]:
+def tokenize(code: str) -> list[Token]:
     pattern = re.compile(r'\s*(\(|\)|"[^"]*"|[^\s()]+)\s*')
     tokens = pattern.findall(code)
     return [(match_token_type(token), token) for token in tokens]
 
 
 def match_token_type(token: str) -> str:
-    if token == LEFT_PARENTHESIS:
+    if token == "(":
         return TOKEN_LEFT_PARENTHESIS
-    elif token == RIGHT_PARENTHESIS:
+    elif token == ")":
         return TOKEN_RIGHT_PARENTHESIS
     elif re.fullmatch(REGEX_KEYWORD, token):
         return TOKEN_KEYWORD
@@ -43,7 +43,7 @@ def match_token_type(token: str) -> str:
         raise ValueError(f"Invalid token: {token}")
 
 
-def build_ast(tokens: list[any]) -> list[Any]:
+def build_ast(tokens: list[Token]) -> list[ASTNode]:
     token_iter = iter(tokens)
 
     def parse_expression():
