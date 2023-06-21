@@ -7,15 +7,15 @@ TOKEN_KEYWORD = "KEYWORD"
 TOKEN_NUMBER = "NUMBER"
 TOKEN_STRING = "STRING"
 TOKEN_OPERATOR = "OPERATOR"
-TOKEN_SYMBOL = "SYMBOL"
+TOKEN_IDENTIFIER = "IDENTIFIER"
 
 LEFT_PARENTHESIS = "("
 RIGHT_PARENTHESIS = ")"
 REGEX_KEYWORD = r"\b(defun|lambda|if|then|else|let|print|first|list)\b"
 REGEX_NUMBER = r"\d+"
 REGEX_STRING = r'"(?:[^"\\]|\\.)*"'
-REGEX_OPERATOR = r'[<>=*+-/]'
-REGEX_SYMBOL = r"[^\s\(\)]+"
+REGEX_OPERATOR = r"[<>=*+-/]"
+REGEX_IDENTIFIER = r"\b[a-zA-Z][a-zA-Z0-9]*\b"
 
 
 def tokenize(code: str) -> list[Any]:
@@ -37,8 +37,8 @@ def match_token_type(token: str) -> str:
         return TOKEN_STRING
     elif re.fullmatch(REGEX_OPERATOR, token):
         return TOKEN_OPERATOR
-    elif re.fullmatch(REGEX_SYMBOL, token):
-        return TOKEN_SYMBOL
+    elif re.fullmatch(REGEX_IDENTIFIER, token):
+        return TOKEN_IDENTIFIER
     else:
         raise ValueError(f"Invalid token: {token}")
 
