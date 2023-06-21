@@ -1,7 +1,7 @@
 from main import *
 
 
-def test_tokenize_string():
+def test_ast_for_string():
     code = '(print "Hello Lisp!")'
     tokens = [
         (TOKEN_LEFT_PARENTHESIS, "("),
@@ -15,7 +15,7 @@ def test_tokenize_string():
     assert build_ast(tokens) == ast
 
 
-def test_tokenize_number():
+def test_ast_for_number():
     code = "(first (list 1 (+ 2 3) 9))"
     tokens = [
         (TOKEN_LEFT_PARENTHESIS, "("),
@@ -38,7 +38,7 @@ def test_tokenize_number():
     assert build_ast(tokens) == ast
 
 
-def test_tokenize_anonymous_function():
+def test_ast_for_identifier():
     code = "(lambda (x) (* x x))"
     tokens = [
         (TOKEN_LEFT_PARENTHESIS, "("),
@@ -59,7 +59,7 @@ def test_tokenize_anonymous_function():
     assert build_ast(tokens) == ast
 
 
-def test_tokenize_factorial_function():
+def test_ast_for_nested_function():
     code = """
     (defun factorial (n)
         (if (<= n 1)
