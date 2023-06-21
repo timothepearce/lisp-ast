@@ -11,11 +11,15 @@ TOKEN_STRING = "STRING"
 TOKEN_OPERATOR = "OPERATOR"
 TOKEN_IDENTIFIER = "IDENTIFIER"
 
-REGEX_KEYWORD = r"\b(defun|lambda|if|then|else|let|print|first|list)\b"
-REGEX_NUMBER = r"\d+"
-REGEX_STRING = r'"(?:[^"\\]|\\.)*"'
-REGEX_OPERATOR = r"(<=|>=|<|>|=|\*|\+|-|/)"
-REGEX_IDENTIFIER = r"\b[a-zA-Z][a-zA-Z0-9]*\b"
+TOKENS = {
+    TOKEN_LEFT_PARENTHESIS: r"\(",
+    TOKEN_RIGHT_PARENTHESIS: r"\)",
+    TOKEN_KEYWORD: r"\b(defun|lambda|if|then|else|let|print|first|list)\b",
+    TOKEN_NUMBER: r"\d+",
+    TOKEN_STRING: r'"(?:[^"\\]|\\.)*"',
+    TOKEN_OPERATOR: r"(<=|>=|<|>|=|\*|\+|-|/)",
+    TOKEN_IDENTIFIER: r"\b[a-zA-Z][a-zA-Z0-9]*\b"
+}
 
 
 def tokenize(code: str) -> list[Token]:
@@ -25,22 +29,10 @@ def tokenize(code: str) -> list[Token]:
 
 
 def match_token_type(token: str) -> str:
-    if token == "(":
-        return TOKEN_LEFT_PARENTHESIS
-    elif token == ")":
-        return TOKEN_RIGHT_PARENTHESIS
-    elif re.fullmatch(REGEX_KEYWORD, token):
-        return TOKEN_KEYWORD
-    elif re.fullmatch(REGEX_NUMBER, token):
-        return TOKEN_NUMBER
-    elif re.fullmatch(REGEX_STRING, token):
-        return TOKEN_STRING
-    elif re.fullmatch(REGEX_OPERATOR, token):
-        return TOKEN_OPERATOR
-    elif re.fullmatch(REGEX_IDENTIFIER, token):
-        return TOKEN_IDENTIFIER
-    else:
-        raise ValueError(f"Invalid token: {token}")
+    for token_type, regex in TOKENS.items():
+        if re.fullmatch(regex, token):
+            return token_type
+    raise ValueError(f"Invalid token: {token}")
 
 
 def build_ast(tokens: list[Token]) -> list[ASTNode]:
