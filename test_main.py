@@ -45,3 +45,42 @@ def test_tokenize_anonymous_function():
         (TOKEN_RIGHT_PARENTHESIS, ")"),
         (TOKEN_RIGHT_PARENTHESIS, ")"),
     ]
+
+
+def test_tokenize_factorial_function():
+    code = """
+    (defun factorial (n)
+        (if (<= n 1)
+            1
+            (* n (factorial (- n 1)))))
+    """
+    assert tokenize(code) == [
+        (TOKEN_LEFT_PARENTHESIS, "("),
+        (TOKEN_KEYWORD, "defun"),
+        (TOKEN_IDENTIFIER, "factorial"),
+        (TOKEN_LEFT_PARENTHESIS, "("),
+        (TOKEN_IDENTIFIER, "n"),
+        (TOKEN_RIGHT_PARENTHESIS, ")"),
+        (TOKEN_LEFT_PARENTHESIS, "("),
+        (TOKEN_KEYWORD, "if"),
+        (TOKEN_LEFT_PARENTHESIS, "("),
+        (TOKEN_OPERATOR, "<="),
+        (TOKEN_IDENTIFIER, "n"),
+        (TOKEN_NUMBER, "1"),
+        (TOKEN_RIGHT_PARENTHESIS, ")"),
+        (TOKEN_NUMBER, "1"),
+        (TOKEN_LEFT_PARENTHESIS, "("),
+        (TOKEN_OPERATOR, "*"),
+        (TOKEN_IDENTIFIER, "n"),
+        (TOKEN_LEFT_PARENTHESIS, "("),
+        (TOKEN_IDENTIFIER, "factorial"),
+        (TOKEN_LEFT_PARENTHESIS, "("),
+        (TOKEN_OPERATOR, "-"),
+        (TOKEN_IDENTIFIER, "n"),
+        (TOKEN_NUMBER, "1"),
+        (TOKEN_RIGHT_PARENTHESIS, ")"),
+        (TOKEN_RIGHT_PARENTHESIS, ")"),
+        (TOKEN_RIGHT_PARENTHESIS, ")"),
+        (TOKEN_RIGHT_PARENTHESIS, ")"),
+        (TOKEN_RIGHT_PARENTHESIS, ")"),
+    ]

@@ -14,7 +14,7 @@ RIGHT_PARENTHESIS = ")"
 REGEX_KEYWORD = r"\b(defun|lambda|if|then|else|let|print|first|list)\b"
 REGEX_NUMBER = r"\d+"
 REGEX_STRING = r'"(?:[^"\\]|\\.)*"'
-REGEX_OPERATOR = r"[<>=*+-/]"
+REGEX_OPERATOR = r"(<=|>=|<|>|=|\*|\+|-|/)"
 REGEX_IDENTIFIER = r"\b[a-zA-Z][a-zA-Z0-9]*\b"
 
 
