@@ -43,11 +43,27 @@ def match_token_type(token: str) -> str:
         raise ValueError(f"Invalid token: {token}")
 
 
-def parse_tokens(tokens: list[any]) -> list[Any]:
-    return tokens
+def build_ast(tokens: list[any]) -> list[Any]:
+    token_iter = iter(tokens)
+
+    def parse_expression():
+        node = []
+        for token_type, value in token_iter:
+            if token_type == TOKEN_LEFT_PARENTHESIS:
+                node.append(parse_expression())
+            elif token_type == TOKEN_RIGHT_PARENTHESIS:
+                return node
+            elif token_type == TOKEN_NUMBER:
+                node.append(int(value))
+            elif token_type == TOKEN_STRING:
+                node.append(value.strip('"'))
+            else:
+                node.append(value)
+        return node
+
+    return parse_expression()[0]
 
 
 def lisp_to_ast(code: str) -> list[str]:
     tokens = tokenize(code)
-    ast = parse_tokens(tokens)
-    return ast
+    return build_ast(tokens)
