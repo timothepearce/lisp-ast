@@ -19,8 +19,11 @@ If you don't have Python 3.11, you can install it using [pyenv](https://github.c
 
 ```bash
 brew install pyenv
-pyenv install 3.11.0
-pyenv global 3.11.0
+
+pyenv install 3.11
+pyenv global 3.11
+
+echo 'eval "$(pyenv init --path)"' >> ~/.zshrc
 ```
 
 ### Poetry
