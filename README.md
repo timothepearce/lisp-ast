@@ -1,7 +1,7 @@
 # LISP to AST Parser
 
 This project is a simple LISP to Abstract Syntax Tree (AST) parser written in Python 3.11. 
-It allows you to convert LISP code into an AST which is useful for a variety of purposes such as code analysis, optimization and execution.
+It allows you to convert LISP code into an AST, which is useful for a variety of purposes, such as code analysis, optimization, and execution.
 
 ## Installation
 
@@ -71,24 +71,24 @@ This will output the AST representation of the LISP code:
 
 ### Execute tests
 
-@todo Add a CLI to execute tests which are located in the "test_main.py" at the root of the project folder.
+```bash
+poetry run pytest
+```
 
 ## Development process
 
 ### Methodology
 
-Coming from a non-LISP background, the project began with researching LISP syntax and language features. The implementation was carried out using the Test-Driven Development (TDD) approach. The requirements were broken down into small, manageable parts - each defined by a specific test case. The test cases were written first, followed by the minimum amount of code required to pass those tests. This approach allows for more manageable development cycles, and helps ensure that all code has corresponding tests, leading to fewer bugs.
-@todo add to this paragraph that I used the SBCL CLI to tests code before implementation (https://www.sbcl.org/)
+Coming from a non-LISP background, the project began with researching LISP syntax and language features, I used the [SBCL CLI](https://www.sbcl.org/) to run some LISP code before implementation. The implementation was carried out using the Test-Driven Development (TDD) approach. The requirements were broken down into small, manageable parts - each defined by a specific test case. The test cases were written first, followed by the minimum amount of code required to pass those tests. This approach allows for more manageable development cycles and helps ensure that all code has corresponding tests, leading to fewer bugs.
 
 ### How the code works
 
 The program takes a string of LISP code and breaks it down using regular expressions. 
-This process is known as tokenization. Each token is then identified based on its pattern - e.g. number, keyword, string, etc. Once the code is tokenized, an Abstract Syntax Tree (AST) is built from the tokens. The AST is a tree representation of the code where each node is a token. It is built by analyzing the token list then group and nest them based on the LISP rules.
-@todo reformat the above paragraph in a more technical explanation and better english.
+This process is known as tokenization. Each token is then identified based on its pattern - e.g., number, keyword, string, etc. Once the code is tokenized, an Abstract Syntax Tree (AST) is built from the tokens. The AST is a tree representation of the code where each node is a token. It is built by analyzing the token list, then grouping and nesting them based on the LISP rules.
 
 ## Technical Limitations
 
-1. The parser Currently only supports a subset of LISP, including functions, arithmetic operators and primitive types. It doesn't support complex LISP features like macros or semaphores.
+1. The parser Currently only supports a subset of LISP, including functions, arithmetic operators, and primitive types. It doesn't support complex LISP features like macros or semaphores.
 
 2. The parser is not optimized for performance and could be slow for large inputs.
 
