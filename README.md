@@ -37,7 +37,7 @@ curl -sSL https://install.python-poetry.org | python3 -
 
 ```bash
 git clone https://github.com/timothepearce/lisp-ast.git
-cd lisp-to-ast
+cd lisp-ast
 ```
 
 2. Install the project dependencies with Poetry:
